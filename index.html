@@ -3,124 +3,240 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>财务中心述职抽签系统</title>
+    <title>20251222-抽签工具</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: "Microsoft YaHei", sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh; padding: 20px; color: #333;
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            min-height: 100vh; padding: 20px; color: #5D4037;
         }
         .container {
             max-width: 600px; margin: 0 auto; background: white;
-            border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            padding: 30px; position: relative;
+            border-radius: 15px; box-shadow: 0 10px 30px rgba(251, 140, 0, 0.1);
+            padding: 30px; position: relative; border: 1px solid #FFB74D;
         }
         .header {
             text-align: center; margin-bottom: 30px;
-            padding-bottom: 15px; border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px; border-bottom: 2px solid #FFB74D;
         }
-        .header h1 { color: #2c3e50; font-size: 24px; margin-bottom: 10px; }
-        .counter {
-            background: #e8f4fd; padding: 10px 20px; border-radius: 20px;
-            display: inline-block; margin-top: 10px; font-weight: bold;
+        .header h1 { 
+            color: #E65100; 
+            font-size: 24px; 
+            margin-bottom: 10px; 
         }
-        .counter.full { background: #f8d7da; color: #721c24; }
-        
         .step {
-            margin-bottom: 25px; padding: 20px; background: #f8f9fa;
-            border-radius: 12px; border-left: 4px solid #3498db;
+            margin-bottom: 25px; padding: 20px; 
+            background: #FFF8E1;
+            border-radius: 12px; border-left: 4px solid #FF9800;
             transition: all 0.3s ease;
         }
-        .step.active { border-left-color: #2ecc71; background: #e8f6f3; }
-        .step.completed { border-left-color: #95a5a6; opacity: 0.9; }
+        .step.active { 
+            border-left-color: #FF8F00; 
+            background: #FFECB3; 
+        }
+        .step.completed { 
+            border-left-color: #BCAAA4; 
+            opacity: 0.9; 
+        }
         .step h2 {
-            color: #2c3e50; margin-bottom: 12px; display: flex;
-            align-items: center; font-size: 18px;
+            color: #5D4037; 
+            margin-bottom: 12px; 
+            display: flex;
+            align-items: center; 
+            font-size: 18px;
         }
         .step-number {
-            display: inline-flex; align-items: center; justify-content: center;
-            width: 26px; height: 26px; background: #3498db; color: white;
-            border-radius: 50%; margin-right: 10px; font-weight: bold;
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center;
+            width: 26px; 
+            height: 26px; 
+            background: #FF9800; 
+            color: white;
+            border-radius: 50%; 
+            margin-right: 10px; 
+            font-weight: bold;
         }
-        .step.active .step-number { background: #2ecc71; }
-        .step.completed .step-number { background: #95a5a6; }
+        .step.active .step-number { background: #FF8F00; }
+        .step.completed .step-number { background: #BCAAA4; }
         
-        input[type="text"] {
-            width: 100%; padding: 14px; border: 2px solid #ddd;
-            border-radius: 8px; font-size: 16px; transition: border 0.3s ease;
+        input[type="text"], input[type="password"] {
+            width: 100%; 
+            padding: 14px; 
+            border: 2px solid #FFB74D;
+            border-radius: 8px; 
+            font-size: 16px; 
+            transition: border 0.3s ease;
             margin-bottom: 15px;
+            background: #FFF8E1;
         }
-        input[type="text"]:focus { border-color: #3498db; outline: none; }
+        input[type="text"]:focus, input[type="password"]:focus { 
+            border-color: #FF9800; 
+            outline: none; 
+            background: white;
+        }
         
         .btn {
-            display: block; width: 100%; padding: 16px;
-            background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%);
-            color: white; border: none; border-radius: 10px; font-size: 16px;
-            font-weight: bold; cursor: pointer; transition: all 0.3s ease;
+            display: block; 
+            width: 100%; 
+            padding: 16px;
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px;
+            font-weight: bold; 
+            cursor: pointer; 
+            transition: all 0.3s ease;
         }
         .btn:hover:not(:disabled) {
-            transform: translateY(-2px); box-shadow: 0 8px 16px rgba(52,152,219,0.2);
+            transform: translateY(-2px); 
+            box-shadow: 0 8px 16px rgba(255, 152, 0, 0.3);
         }
-        .btn:disabled { background: #bdc3c7; cursor: not-allowed; }
-        .btn.secondary { background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%); }
-        .btn.success { background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%); }
+        .btn:disabled { 
+            background: #FFCCBC; 
+            cursor: not-allowed; 
+            color: #8D6E63;
+        }
+        .btn.secondary { 
+            background: linear-gradient(135deg, #FFB74D 0%, #FF9800 100%); 
+        }
+        .btn.success { 
+            background: linear-gradient(135deg, #FFA726 0%, #FB8C00 100%); 
+        }
+        .btn.danger { 
+            background: linear-gradient(135deg, #F44336 0%, #D32F2F 100%); 
+        }
+        .btn.danger:hover:not(:disabled) {
+            box-shadow: 0 8px 16px rgba(244, 67, 54, 0.3);
+        }
         
         .result-card {
-            text-align: center; padding: 25px; margin: 20px 0;
-            border-radius: 12px; background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
-            display: none; animation: fadeIn 0.5s ease;
+            text-align: center; 
+            padding: 25px; 
+            margin: 20px 0;
+            border-radius: 12px; 
+            background: linear-gradient(135deg, #FFECB3 0%, #FFE0B2 100%);
+            display: none; 
+            animation: fadeIn 0.5s ease;
+            border: 1px solid #FFCC80;
         }
         .result-card.show { display: block; }
         .result-content {
-            font-size: 28px; font-weight: bold; color: #e74c3c;
+            font-size: 28px; 
+            font-weight: bold; 
+            color: #D84315;
             margin: 15px 0;
         }
         .result-details {
-            font-size: 18px; line-height: 1.5; color: #2c3e50;
-            padding: 15px; background: white; border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05); margin: 15px 0;
+            font-size: 18px; 
+            line-height: 1.5; 
+            color: #5D4037;
+            padding: 15px; 
+            background: white; 
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(251, 140, 0, 0.05); 
+            margin: 15px 0;
             white-space: pre-line;
+            border: 1px solid #FFE0B2;
         }
         
         .badge {
-            display: inline-block; padding: 8px 20px; border-radius: 20px;
-            font-weight: bold; font-size: 16px; margin: 10px;
+            display: inline-block; 
+            padding: 8px 20px; 
+            border-radius: 20px;
+            font-weight: bold; 
+            font-size: 16px; 
+            margin: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .lingzhu-badge { background: linear-gradient(135deg, #a8edea 0%, #74b9ff 100%); color: #2c3e50; }
-        .mowan-badge { background: linear-gradient(135deg, #fed6e3 0%, #fd79a8 100%); color: #2c3e50; }
-        .hunyuanzhu-badge { background: linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%); color: #2c3e50; }
+        .lingzhu-badge { 
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFCC80 100%); 
+            color: #E65100; 
+            border: 1px solid #FFB74D;
+        }
+        .mowan-badge { 
+            background: linear-gradient(135deg, #FFE0B2 0%, #FFAB91 100%); 
+            color: #BF360C; 
+            border: 1px solid #FF8A65;
+        }
+        .hunyuanzhu-badge { 
+            background: linear-gradient(135deg, #FFECB3 0%, #FFD54F 100%); 
+            color: #E65100; 
+            border: 1px solid #FFB300;
+        }
         
         .locked-message {
-            background: #f8d7da; color: #721c24; padding: 15px;
-            border-radius: 8px; margin: 15px 0; text-align: center;
-            border-left: 4px solid #dc3545;
+            background: #FFECB3; 
+            color: #E65100; 
+            padding: 15px;
+            border-radius: 8px; 
+            margin: 15px 0; 
+            text-align: center;
+            border-left: 4px solid #FF9800;
         }
         
         .admin-panel {
-            position: fixed; bottom: 80px; right: 20px; z-index: 1000;
-            background: white; padding: 15px; border-radius: 10px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15); display: none;
-            width: 300px; max-height: 400px; overflow-y: auto;
+            position: fixed; 
+            bottom: 80px; 
+            right: 20px; 
+            z-index: 1000;
+            background: white; 
+            padding: 15px; 
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(255, 152, 0, 0.15); 
+            display: none;
+            width: 300px; 
+            max-height: 400px; 
+            overflow-y: auto;
+            border: 2px solid #FF9800;
         }
         .admin-panel.show { display: block; }
         .admin-btn {
-            background: #e74c3c; color: white; border: none;
-            border-radius: 50%; width: 50px; height: 50px;
-            font-size: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(231,76,60,0.3);
-            position: fixed; bottom: 20px; right: 20px; z-index: 1001;
+            background: #FF9800; 
+            color: white; 
+            border: none;
+            border-radius: 50%; 
+            width: 50px; 
+            height: 50px;
+            font-size: 20px; 
+            cursor: pointer; 
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+            position: fixed; 
+            bottom: 20px; 
+            right: 20px; 
+            z-index: 1001;
+            transition: all 0.3s;
+        }
+        .admin-btn:hover {
+            background: #F57C00;
+            transform: scale(1.1);
         }
         
         .stats-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 10px; margin: 15px 0;
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px; 
+            margin: 15px 0;
         }
         .stat-card {
-            background: #f8f9fa; padding: 12px; border-radius: 8px;
+            background: #FFF3E0; 
+            padding: 10px; 
+            border-radius: 8px;
             text-align: center;
+            border: 1px solid #FFE0B2;
         }
-        .stat-value { font-size: 24px; font-weight: bold; color: #2c3e50; }
-        .stat-label { font-size: 12px; color: #7f8c8d; margin-top: 5px; }
+        .stat-value { 
+            font-size: 18px; 
+            font-weight: bold; 
+            color: #E65100; 
+        }
+        .stat-label { 
+            font-size: 11px; 
+            color: #8D6E63; 
+            margin-top: 3px; 
+        }
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(15px); }
@@ -128,26 +244,142 @@
         }
         
         .limit-reached {
-            background: #fff3cd; color: #856404; padding: 12px;
-            border-radius: 8px; margin: 15px 0; text-align: center;
-            border-left: 4px solid #ffc107;
+            background: #FFF3E0; 
+            color: #E65100; 
+            padding: 12px;
+            border-radius: 8px; 
+            margin: 15px 0; 
+            text-align: center;
+            border-left: 4px solid #FF9800;
+        }
+        
+        .name-warning {
+            background: #FFEBEE; 
+            color: #C62828; 
+            padding: 10px;
+            border-radius: 6px; 
+            margin: 10px 0; 
+            font-size: 14px;
+            border-left: 3px solid #F44336;
+            display: none;
+        }
+        
+        .not-in-list-warning {
+            background: #FFF3E0; 
+            color: #FF6F00; 
+            padding: 10px;
+            border-radius: 6px; 
+            margin: 10px 0; 
+            font-size: 14px;
+            border-left: 3px solid #FF9800;
+            display: none;
+        }
+        
+        .probability-info {
+            background: #E8F5E9; 
+            color: #2E7D32; 
+            padding: 8px 12px;
+            border-radius: 6px; 
+            margin: 8px 0; 
+            font-size: 12px;
+            border-left: 3px solid #4CAF50;
+            display: none;
+        }
+        
+        /* 管理员入口样式 */
+        .admin-entry {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1002;
+        }
+        
+        .admin-entry-btn {
+            background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(255, 152, 0, 0.3);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .admin-entry-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 152, 0, 0.4);
+        }
+        
+        .admin-entry-btn:active {
+            transform: translateY(0);
+        }
+        
+        /* 重置密码区域样式 */
+        .reset-section {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #FFE0B2;
+        }
+        
+        .password-input-group {
+            margin-bottom: 10px;
+        }
+        
+        .password-label {
+            font-size: 12px;
+            color: #5D4037;
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+        
+        .password-status {
+            font-size: 12px;
+            margin-top: 5px;
+            padding: 5px 8px;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .password-status.success {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-left: 3px solid #4CAF50;
+            display: block;
+        }
+        
+        .password-status.error {
+            background: #FFEBEE;
+            color: #C62828;
+            border-left: 3px solid #F44336;
+            display: block;
         }
     </style>
 </head>
 <body>
+    <!-- 管理员入口按钮 -->
+    <div class="admin-entry">
+        <button class="admin-entry-btn" onclick="toggleAdminPanel()">
+            <span>🔧</span>
+            <span>管理面板</span>
+        </button>
+    </div>
+    
     <div class="container">
         <div class="header">
-            <h1>🎲 财务中心述职抽签</h1>
-            <p style="color: #7f8c8d; font-size: 14px;"> · 每设备仅限一次</p>
-            <div class="counter" id="participantCounter">
-                已抽签：<span id="currentCount">0</span>/30
-            </div>
+            <h1>📋 20251222-抽签工具</h1>
+            <p style="color: #8D6E63; font-size: 14px;">述职抽签 · 30人专属 · 平均分配</p>
         </div>
         
         <!-- 设备信息 -->
-        <div style="background: #e8f4fd; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
-            <div style="font-size: 14px; color: #2c3e50;">
-                设备识别码：<span id="deviceIdDisplay" style="font-family: monospace; background: #2c3e50; color: white; padding: 4px 8px; border-radius: 4px;"></span>
+        <div style="background: #FFF3E0; padding: 12px; border-radius: 8px; margin-bottom: 20px; text-align: center; border: 1px solid #FFE0B2;">
+            <div style="font-size: 14px; color: #5D4037;">
+                设备识别码：<span id="deviceIdDisplay" style="font-family: monospace; background: #5D4037; color: white; padding: 4px 8px; border-radius: 4px;"></span>
             </div>
         </div>
         
@@ -155,61 +387,75 @@
         <div class="step active" id="step1">
             <h2><span class="step-number">1</span> 填写姓名</h2>
             
-            <div id="duplicateWarning" style="display: none; background: #f8d7da; color: #721c24; padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+            <div id="duplicateWarning" style="display: none;" class="name-warning">
+                ⚠️ 检测到同名提交！该姓名已被其他设备使用。请使用真实姓名，每人仅限提交一次。
+            </div>
+            
+            <div id="deviceWarning" style="display: none;" class="name-warning">
                 ⚠️ 您的设备已抽签，不可重复参与
+            </div>
+            
+            <div id="notInListWarning" style="display: none;" class="not-in-list-warning">
+                ⚠️ 您不在本次述职名单内
             </div>
             
             <div id="limitWarning" style="display: none;" class="limit-reached">
                 ⚠️ 已达到30人抽签上限
             </div>
             
-            <input type="text" id="userName" placeholder="请输入真实姓名（2-10个字符）" maxlength="10" autocomplete="off">
+            <input type="text" id="userName" placeholder="请输入名单中的姓名（完全匹配）" maxlength="10" autocomplete="off">
+            <div id="nameStatus" style="font-size: 12px; color: #8D6E63; margin-bottom: 10px; display: none;">
+                <span id="nameStatusText"></span>
+            </div>
             
             <button class="btn" id="startBtn">开始抽签</button>
             
-            <div style="margin-top: 15px; font-size: 12px; color: #7f8c8d; text-align: center;">
-                <p>📱 提示：请勿清除浏览器数据，否则会被视为新设备</p>
+            <div style="margin-top: 15px; font-size: 12px; color: #8D6E63; text-align: center;">
+                <p>📱 提示：请确保填写姓名与名单完全一致</p>
             </div>
         </div>
         
-        <!-- 步骤2-4（保持不变） -->
+        <!-- 步骤2：抽取身份 -->
         <div class="step" id="step2" style="display: none;">
             <h2><span class="step-number">2</span> 抽取身份</h2>
-            <p style="margin-bottom: 15px; color: #666;">点击按钮随机抽取述职身份</p>
+            <p style="margin-bottom: 15px; color: #8D6E63;">点击按钮随机抽取述职身份</p>
             <button class="btn" id="drawIdentityBtn">🔮 抽取身份</button>
             <div class="result-card" id="identityResult">
-                <div style="font-size: 18px; color: #2c3e50;">您的述职身份：</div>
+                <div style="font-size: 18px; color: #5D4037;">您的述职身份：</div>
                 <div id="identityBadge" class="badge"></div>
                 <div class="result-content" id="identityText"></div>
             </div>
         </div>
         
+        <!-- 步骤3：抽取题目 -->
         <div class="step" id="step3" style="display: none;">
             <h2><span class="step-number">3</span> 抽取题目</h2>
-            <p style="margin-bottom: 15px; color: #666;">根据身份抽取对应题目</p>
+            <p style="margin-bottom: 15px; color: #8D6E63;">根据身份抽取对应题目</p>
             <button class="btn secondary" id="drawQuestionBtn">📝 抽取题目</button>
             <div class="result-card" id="questionResult">
-                <div style="font-size: 18px; color: #2c3e50;">您的述职题目：</div>
+                <div style="font-size: 18px; color: #5D4037;">您的述职题目：</div>
                 <div class="result-details" id="questionText"></div>
             </div>
         </div>
         
+        <!-- 步骤4：完成 -->
         <div class="step" id="step4" style="display: none;">
             <h2><span class="step-number">4</span> 完成抽签</h2>
             <button class="btn success" id="completeBtn">✅ 完成抽签</button>
             <div class="result-card" id="finalResult">
-                <div style="font-size: 20px; color: #2c3e50; margin-bottom: 15px;">🎉 抽签完成！</div>
-                <div style="font-size: 22px; font-weight: bold; color: #e74c3c; margin-bottom: 10px;" id="finalName"></div>
+                <div style="font-size: 20px; color: #5D4037; margin-bottom: 15px;">🎉 抽签完成！</div>
+                <div style="font-size: 22px; font-weight: bold; color: #D84315; margin-bottom: 10px;" id="finalName"></div>
                 <div id="finalIdentityBadge" class="badge"></div>
                 <div class="result-details" id="finalQuestion" style="margin-top: 15px;"></div>
-                <div class="locked-message" style="margin-top: 20px;">🔒 结果已锁定，不可修改</div>
+                <div class="locked-message" style="margin-top: 20px;">
+                    🔒 结果已锁定，不可修改
+                </div>
             </div>
         </div>
         
         <!-- 管理员面板 -->
-        <button class="admin-btn" onclick="toggleAdminPanel()">🔧</button>
         <div class="admin-panel" id="adminPanel">
-            <h3 style="margin-bottom: 15px; color: #2c3e50;">📊 管理面板</h3>
+            <h3 style="margin-bottom: 15px; color: #5D4037;">📊 动态概率管理看板</h3>
             
             <div class="stats-grid">
                 <div class="stat-card">
@@ -228,19 +474,54 @@
                     <div class="stat-value" id="adminMowan">0</div>
                     <div class="stat-label">魔丸</div>
                 </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="adminHunyuan">0</div>
+                    <div class="stat-label">混元珠</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="adminRemaining">30</div>
+                    <div class="stat-label">剩余名额</div>
+                </div>
+            </div>
+            
+            <!-- 动态概率分布显示 -->
+            <div style="background: #FFF3E0; padding: 10px; border-radius: 8px; margin: 10px 0; border: 1px solid #FFE0B2;">
+                <div style="font-size: 12px; color: #5D4037; margin-bottom: 5px; font-weight: bold;">当前概率分布</div>
+                <div style="font-size: 11px; color: #8D6E63;">
+                    灵珠: <span id="currentProbLingzhu">40%</span> · 
+                    魔丸: <span id="currentProbMowan">40%</span> · 
+                    混元珠: <span id="currentProbHunyuan">20%</span>
+                </div>
+                <div style="font-size: 11px; color: #8D6E63; margin-top: 3px;">
+                    已抽取: 灵珠 <span id="usedLingzhu">0</span> · 魔丸 <span id="usedMowan">0</span> · 混元珠 <span id="usedHunyuan">0</span>
+                </div>
             </div>
             
             <div style="margin: 15px 0;">
                 <button class="btn" onclick="exportAllData()" style="margin-bottom: 10px;">📥 导出全部数据(CSV)</button>
-                <button class="btn secondary" onclick="exportSimpleData()" style="margin-bottom: 10px;">📋 导出简版数据</button>
+                <button class="btn secondary" onclick="exportProbabilityReport()" style="margin-bottom: 10px;">📊 导出概率报告</button>
                 <button class="btn success" onclick="showAllResults()">👁️ 查看所有结果</button>
             </div>
             
-            <div style="border-top: 1px solid #eee; padding-top: 15px;">
-                <h4>系统信息</h4>
-                <p style="font-size: 12px; color: #7f8c8d;">
-                    管理员密码：<code>Finance2025@888</code><br>
-                    抽签上限：<span id="maxParticipants">30</span>人<br>
+            <!-- 重置系统区域 -->
+            <div class="reset-section">
+                <h4 style="color: #5D4037; margin-bottom: 10px;">🔄 系统重置</h4>
+                <div class="password-input-group">
+                    <label class="password-label">请输入重置密码：</label>
+                    <input type="password" id="resetPassword" placeholder="输入密码" style="margin-bottom: 5px;">
+                    <div id="passwordStatus" class="password-status"></div>
+                </div>
+                <button class="btn danger" onclick="resetSystemWithPassword()" style="margin-top: 5px;">⚠️ 重置全部数据</button>
+                <p style="font-size: 11px; color: #8D6E63; margin-top: 8px;">
+                    注意：重置将清除所有抽签记录和概率状态，系统将恢复到初始状态。此操作不可逆！
+                </p>
+            </div>
+            
+            <div style="border-top: 1px solid #FFE0B2; padding-top: 15px; margin-top: 15px;">
+                <h4>动态概率说明</h4>
+                <p style="font-size: 11px; color: #8D6E63;">
+                    总人数: 30人 · 初始配额: 灵珠12人, 魔丸12人, 混元珠6人<br>
+                    每抽取一次，对应身份配额减少1<br>
                     最后更新：<span id="lastUpdate">-</span>
                 </p>
             </div>
@@ -250,31 +531,317 @@
     <script>
         // ==================== 系统配置 ====================
         const CONFIG = {
-            MAX_PARTICIPANTS: 30, // 最大抽签人数
-            ADMIN_PASSWORD: 'Finance2025@888',
+            MAX_PARTICIPANTS: 30,
+            RESET_PASSWORD: 'Yx!123451', // 重置密码
+            
+            // 初始配额：30人 × 概率 = 初始数量
+            // 灵珠40% = 12人，魔丸40% = 12人，混元珠20% = 6人
+            INITIAL_QUOTAS: {
+                lingzhu: 12,  // 40% of 30 = 12
+                mowan: 12,    // 40% of 30 = 12
+                hunyuanzhu: 6 // 20% of 30 = 6
+            },
+            
+            // 题库配置
             QUESTION_BANKS: {
                 lingzhu: [
-                    "A：如果可以回到2025年初跟自己对话，你会对自己说些什么？",
-                    "B：评选你心中的'年度最强队友'，并为他/她颁发一个奖项（比如：'人间镇定剂奖'、'永动机式加班狂人奖'、'XX之王'），及准备一段30秒的颁奖词。",
-                    "C：如果为你自己的明年做一个'时间投入预算'，你最想在哪方面'增加投入'？（比如：增加与某位同事的交流、增加一次技能学习、增加一些放松时刻）",
-                    "D：分享一个你用来在繁忙工作中快速放松或调整心情的方法。"
+                    { id: "A", text: "如果可以回到2025年初跟自己对话，你会对自己说些什么？" },
+                    { id: "B", text: "评选你心中的'年度最强队友'，并为他/她颁发一个奖项（比如：'人间镇定剂奖'、'永动机式加班狂人奖'、'XX之王'），及准备一段30秒的颁奖词。" },
+                    { id: "C", text: "如果为你自己的明年做一个'时间投入预算'，你最想在哪方面'增加投入'？（比如：增加与某位同事的交流、增加一次技能学习、增加一些放松时刻）" },
+                    { id: "D", text: "分享一个你用来在繁忙工作中快速放松或调整心情的方法。" }
                 ],
                 mowan: [
-                    "A：请炫耀一项你今年对团队做出的最不正经但弥足珍贵的贡献。（比如：是方圆十里好吃外卖资源大师、或是工作群气氛组MVP...）",
-                    "B：你现在马上有一个升职加薪的机会，想要给领导展示的2-3个突出优点是什么，为什么？",
-                    "C：传统述职会就是一群人轮流站在台上讲PPT，而技能述职会就是在传统的基础上加上特别环节。如果明年是由你来举办技能述职会，你会为述职会增加什么技能环节，为什么？",
-                    "D：想象现在有一把刀架在你的脖子上，需要你说出你希望你的直属/间接领导改进的一个问题和建议。",
-                    "E：请唱一首歌或朗读一首诗表达今年/此刻的感受或心境。"
+                    { id: "A", text: "请炫耀一项你今年对团队做出的最不正经但弥足珍贵的贡献。（比如：是方圆十里好吃外卖资源大师、或是工作群气氛组MVP...）" },
+                    { id: "B", text: "你现在马上有一个升职加薪的机会，想要给领导展示的2-3个突出优点是什么，为什么？" },
+                    { id: "C", text: "传统述职会就是一群人轮流站在台上讲PPT，而技能述职会就是在传统的基础上加上特别环节。如果明年是由你来举办技能述职会，你会为述职会增加什么技能环节，为什么？" },
+                    { id: "D", text: "想象现在有一把刀架在你的脖子上，需要你说出你希望你的直属/间接领导改进的一个问题和建议。" },
+                    { id: "E", text: "请唱一首歌或朗读一首诗表达今年/此刻的感受或心境。" }
                 ],
                 hunyuanzhu: [
-                    "【混元珠特权】无需抽题，从所有题库中任选一题回答的主题进行分享"
+                    { id: "T", text: "【混元珠特权】无需抽题，可选择以下任一方向：\n1. 从灵珠题库中任选一题回答\n2. 从魔丸题库中任选一题回答\n3. 自拟一个关于'2025年成长与突破'的主题进行分享" }
                 ]
+            }
+        };
+
+        // ==================== 述职人员名单 ====================
+        const PARTICIPANT_LIST = [
+            "樊毓龙", "代鹏", "关璐", "王畯", "李伟伟", 
+            "刘子璇", "樊后裕", "黄晓萱", "谢智慧", "钟文浩", 
+            "袁成忠", "陈波", "余浩", "黄孟孜", "郑莹", 
+            "郭静雯", "陈家宁", "邱嘉浩", "孔庆盛", "谭晓芸", 
+            "邱惠泯", "刘欣璐", "郑俊", "秦乐诗", "路然", 
+            "林丽华", "林丹丹", "逄淑媛", "刘倩婷", "备用"
+        ];
+
+        // ==================== 动态概率管理系统 ====================
+        let probabilitySystem = {
+            // 当前剩余配额
+            remainingQuotas: { ...CONFIG.INITIAL_QUOTAS },
+            
+            // 已使用配额
+            usedQuotas: {
+                lingzhu: 0,
+                mowan: 0,
+                hunyuanzhu: 0
             },
-            IDENTITIES: [
-                { name: "灵珠", code: "lingzhu", probability: 0.4 },
-                { name: "魔丸", code: "mowan", probability: 0.4 },
-                { name: "混元珠", code: "hunyuanzhu", probability: 0.2 }
-            ]
+            
+            // 题目使用情况
+            usedQuestions: {
+                lingzhu: { "A": 0, "B": 0, "C": 0, "D": 0 },
+                mowan: { "A": 0, "B": 0, "C": 0, "D": 0, "E": 0 }
+            },
+            
+            // 计算当前概率
+            calculateCurrentProbabilities: function() {
+                const totalRemaining = this.remainingQuotas.lingzhu + 
+                                     this.remainingQuotas.mowan + 
+                                     this.remainingQuotas.hunyuanzhu;
+                
+                if (totalRemaining === 0) return { lingzhu: 0, mowan: 0, hunyuanzhu: 0 };
+                
+                return {
+                    lingzhu: this.remainingQuotas.lingzhu / totalRemaining,
+                    mowan: this.remainingQuotas.mowan / totalRemaining,
+                    hunyuanzhu: this.remainingQuotas.hunyuanzhu / totalRemaining
+                };
+            },
+            
+            // 根据当前概率随机选择身份
+            selectIdentity: function() {
+                const probs = this.calculateCurrentProbabilities();
+                const random = Math.random();
+                
+                console.log("当前概率分布:", probs);
+                console.log("随机数:", random);
+                
+                let cumulative = 0;
+                
+                // 按概率选择身份
+                if (random < (cumulative + probs.lingzhu) && this.remainingQuotas.lingzhu > 0) {
+                    return "lingzhu";
+                }
+                cumulative += probs.lingzhu;
+                
+                if (random < (cumulative + probs.mowan) && this.remainingQuotas.mowan > 0) {
+                    return "mowan";
+                }
+                cumulative += probs.mowan;
+                
+                if (random < (cumulative + probs.hunyuanzhu) && this.remainingQuotas.hunyuanzhu > 0) {
+                    return "hunyuanzhu";
+                }
+                
+                // 如果由于四舍五入问题未选中，选择剩余配额最多的
+                const maxQuota = Math.max(
+                    this.remainingQuotas.lingzhu,
+                    this.remainingQuotas.mowan,
+                    this.remainingQuotas.hunyuanzhu
+                );
+                
+                if (maxQuota === this.remainingQuotas.lingzhu) return "lingzhu";
+                if (maxQuota === this.remainingQuotas.mowan) return "mowan";
+                return "hunyuanzhu";
+            },
+            
+            // 选择题目（考虑已使用情况）
+            selectQuestion: function(identity) {
+                if (identity === "hunyuanzhu") {
+                    return CONFIG.QUESTION_BANKS.hunyuanzhu[0];
+                }
+                
+                const questions = CONFIG.QUESTION_BANKS[identity];
+                const used = this.usedQuestions[identity];
+                
+                // 计算每个题目的权重（使用次数越少，权重越高）
+                const weights = questions.map(q => {
+                    const usedCount = used[q.id] || 0;
+                    // 基础权重10，每使用一次减少2，最低权重为1
+                    return Math.max(1, 10 - (usedCount * 2));
+                });
+                
+                // 计算总权重
+                const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+                
+                // 根据权重随机选择
+                let random = Math.random() * totalWeight;
+                for (let i = 0; i < questions.length; i++) {
+                    random -= weights[i];
+                    if (random <= 0) {
+                        return questions[i];
+                    }
+                }
+                
+                // 默认返回第一个
+                return questions[0];
+            },
+            
+            // 记录使用
+            recordUsage: function(identity, questionId) {
+                // 更新身份配额
+                if (this.remainingQuotas[identity] > 0) {
+                    this.remainingQuotas[identity]--;
+                    this.usedQuotas[identity]++;
+                }
+                
+                // 更新题目使用情况（如果不是混元珠）
+                if (identity !== "hunyuanzhu" && questionId) {
+                    this.usedQuestions[identity][questionId] = 
+                        (this.usedQuestions[identity][questionId] || 0) + 1;
+                }
+                
+                this.saveToStorage();
+                this.updateDisplay();
+            },
+            
+            // 从数据中恢复状态
+            restoreFromResults: function(results) {
+                // 重置
+                this.remainingQuotas = { ...CONFIG.INITIAL_QUOTAS };
+                this.usedQuotas = { lingzhu: 0, mowan: 0, hunyuanzhu: 0 };
+                this.usedQuestions = {
+                    lingzhu: { "A": 0, "B": 0, "C": 0, "D": 0 },
+                    mowan: { "A": 0, "B": 0, "C": 0, "D": 0, "E": 0 }
+                };
+                
+                // 根据已有结果恢复状态
+                results.forEach(result => {
+                    const identity = result.code;
+                    
+                    // 更新身份配额
+                    if (this.remainingQuotas[identity] > 0) {
+                        this.remainingQuotas[identity]--;
+                        this.usedQuotas[identity]++;
+                    }
+                    
+                    // 更新题目使用（需要从题目中提取ID）
+                    if (identity !== "hunyuanzhu" && result.question) {
+                        // 从题目文本中提取ID（假设格式为"ID："开头）
+                        const match = result.question.match(/^([A-E])：/);
+                        if (match && match[1]) {
+                            const questionId = match[1];
+                            this.usedQuestions[identity][questionId] = 
+                                (this.usedQuestions[identity][questionId] || 0) + 1;
+                        }
+                    }
+                });
+            },
+            
+            // 保存到本地存储
+            saveToStorage: function() {
+                const data = {
+                    remainingQuotas: this.remainingQuotas,
+                    usedQuotas: this.usedQuotas,
+                    usedQuestions: this.usedQuestions
+                };
+                localStorage.setItem('probability_system_v1', JSON.stringify(data));
+            },
+            
+            // 从本地存储加载
+            loadFromStorage: function() {
+                try {
+                    const data = JSON.parse(localStorage.getItem('probability_system_v1'));
+                    if (data) {
+                        this.remainingQuotas = data.remainingQuotas || { ...CONFIG.INITIAL_QUOTAS };
+                        this.usedQuotas = data.usedQuotas || { lingzhu: 0, mowan: 0, hunyuanzhu: 0 };
+                        this.usedQuestions = data.usedQuestions || {
+                            lingzhu: { "A": 0, "B": 0, "C": 0, "D": 0 },
+                            mowan: { "A": 0, "B": 0, "C": 0, "D": 0, "E": 0 }
+                        };
+                    }
+                } catch (e) {
+                    console.log('使用初始概率设置');
+                }
+            },
+            
+            // 更新显示
+            updateDisplay: function() {
+                // 更新管理面板
+                this.updateAdminPanel();
+            },
+            
+            // 更新管理面板
+            updateAdminPanel: function() {
+                const probs = this.calculateCurrentProbabilities();
+                
+                document.getElementById('currentProbLingzhu').textContent = 
+                    `${Math.round(probs.lingzhu * 100)}%`;
+                document.getElementById('currentProbMowan').textContent = 
+                    `${Math.round(probs.mowan * 100)}%`;
+                document.getElementById('currentProbHunyuan').textContent = 
+                    `${Math.round(probs.hunyuanzhu * 100)}%`;
+                
+                document.getElementById('usedLingzhu').textContent = this.usedQuotas.lingzhu;
+                document.getElementById('usedMowan').textContent = this.usedQuotas.mowan;
+                document.getElementById('usedHunyuan').textContent = this.usedQuotas.hunyuanzhu;
+            },
+            
+            // 获取详细报告
+            getDetailedReport: function() {
+                const probs = this.calculateCurrentProbabilities();
+                const totalUsed = this.usedQuotas.lingzhu + this.usedQuotas.mowan + this.usedQuotas.hunyuanzhu;
+                
+                return {
+                    quotas: {
+                        initial: CONFIG.INITIAL_QUOTAS,
+                        remaining: this.remainingQuotas,
+                        used: this.usedQuotas
+                    },
+                    probabilities: {
+                        current: probs,
+                        initial: {
+                            lingzhu: CONFIG.INITIAL_QUOTAS.lingzhu / 30,
+                            mowan: CONFIG.INITIAL_QUOTAS.mowan / 30,
+                            hunyuanzhu: CONFIG.INITIAL_QUOTAS.hunyuanzhu / 30
+                        }
+                    },
+                    questionUsage: this.usedQuestions,
+                    summary: {
+                        totalParticipants: totalUsed,
+                        remainingSlots: 30 - totalUsed,
+                        distributionFairness: this.calculateFairnessScore()
+                    }
+                };
+            },
+            
+            // 计算分配公平性分数
+            calculateFairnessScore: function() {
+                const expected = {
+                    lingzhu: 12,  // 40% of 30
+                    mowan: 12,    // 40% of 30
+                    hunyuanzhu: 6 // 20% of 30
+                };
+                
+                const actual = this.usedQuotas;
+                const total = actual.lingzhu + actual.mowan + actual.hunyuanzhu;
+                
+                if (total === 0) return 100;
+                
+                let score = 100;
+                
+                // 计算每个身份的实际比例与期望比例的差异
+                for (const identity in expected) {
+                    const expectedPct = expected[identity] / 30;
+                    const actualPct = (actual[identity] || 0) / total;
+                    const diff = Math.abs(expectedPct - actualPct);
+                    
+                    // 差异越大，扣分越多
+                    score -= diff * 50;
+                }
+                
+                return Math.max(0, Math.round(score));
+            },
+            
+            // 重置系统
+            resetSystem: function() {
+                this.remainingQuotas = { ...CONFIG.INITIAL_QUOTAS };
+                this.usedQuotas = { lingzhu: 0, mowan: 0, hunyuanzhu: 0 };
+                this.usedQuestions = {
+                    lingzhu: { "A": 0, "B": 0, "C": 0, "D": 0 },
+                    mowan: { "A": 0, "B": 0, "C": 0, "D": 0, "E": 0 }
+                };
+                this.saveToStorage();
+                this.updateDisplay();
+            }
         };
 
         // ==================== 状态管理 ====================
@@ -284,7 +851,7 @@
             hasDrawn: false,
             isDrawing: false,
             identity: null,
-            question: ''
+            question: null
         };
 
         let allResults = [];
@@ -292,7 +859,7 @@
 
         // ==================== 初始化 ====================
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('30人抽签系统初始化...');
+            console.log('抽签系统初始化...');
             
             // 1. 生成设备ID
             initDeviceId();
@@ -300,73 +867,143 @@
             // 2. 加载数据
             loadStoredData();
             
-            // 3. 检查状态
+            // 3. 加载概率系统
+            probabilitySystem.loadFromStorage();
+            
+            // 4. 根据已有结果恢复概率状态
+            probabilitySystem.restoreFromResults(allResults);
+            
+            // 5. 检查状态
             checkUserStatus();
             checkLimitStatus();
             
-            // 4. 更新显示
-            updateParticipantCounter();
-            
-            // 5. 设置事件
+            // 6. 设置事件
             setupEventListeners();
             
-            // 6. 检查URL参数
-            checkUrlParams();
+            // 7. 设置密码输入框的Enter键事件
+            document.getElementById('resetPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    resetSystemWithPassword();
+                }
+            });
             
             console.log('初始化完成，当前抽签人数:', allResults.length);
         });
 
         function initDeviceId() {
-            let deviceId = localStorage.getItem('finance_device_id_30');
+            let deviceId = localStorage.getItem('finance_device_id_v3');
             
             if (!deviceId) {
-                deviceId = 'DEV30_' + Date.now().toString(36).substr(-8) + 
-                          '_' + Math.random().toString(36).substr(2, 6);
-                localStorage.setItem('finance_device_id_30', deviceId);
+                const userAgentHash = hashCode(navigator.userAgent);
+                const timeHash = Date.now().toString(36);
+                const randomHash = Math.random().toString(36).substr(2, 8);
+                
+                deviceId = `DEV_${userAgentHash.substr(0, 6)}_${timeHash.substr(-6)}_${randomHash}`;
+                localStorage.setItem('finance_device_id_v3', deviceId);
             }
             
             currentUser.deviceId = deviceId;
             document.getElementById('deviceIdDisplay').textContent = deviceId.substr(0, 16);
         }
 
+        function hashCode(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return Math.abs(hash).toString(36);
+        }
+
         function loadStoredData() {
             try {
-                const stored = localStorage.getItem('finance_results_30');
+                const stored = localStorage.getItem('finance_results_v3');
                 if (stored) {
                     allResults = JSON.parse(stored);
                 }
             } catch (e) {
-                console.error('数据加载失败:', e);
                 allResults = [];
             }
         }
 
         function checkUserStatus() {
-            const existing = allResults.find(r => r.deviceId === currentUser.deviceId);
+            const existingByDevice = allResults.find(r => r.deviceId === currentUser.deviceId);
             
-            if (existing) {
+            if (existingByDevice) {
                 currentUser.hasDrawn = true;
-                currentUser.name = existing.name;
-                currentUser.identity = { name: existing.identity, code: existing.code };
-                currentUser.question = existing.question;
+                currentUser.name = existingByDevice.name;
+                currentUser.identity = { 
+                    name: existingByDevice.identity, 
+                    code: existingByDevice.code 
+                };
+                currentUser.question = existingByDevice.question;
                 
-                showAlreadyDrawnResult(existing);
+                showAlreadyDrawnResult(existingByDevice);
+                return;
             }
+            
+            const userNameInput = document.getElementById('userName');
+            userNameInput.addEventListener('input', function() {
+                const name = this.value.trim();
+                const nameStatus = document.getElementById('nameStatus');
+                const nameStatusText = document.getElementById('nameStatusText');
+                const notInListWarning = document.getElementById('notInListWarning');
+                const duplicateWarning = document.getElementById('duplicateWarning');
+                const startBtn = document.getElementById('startBtn');
+                
+                // 隐藏所有警告
+                notInListWarning.style.display = 'none';
+                duplicateWarning.style.display = 'none';
+                nameStatus.style.display = 'none';
+                
+                if (name.length === 0) {
+                    startBtn.disabled = true;
+                    return;
+                }
+                
+                // 检查是否在名单内
+                const isInList = PARTICIPANT_LIST.includes(name);
+                
+                if (!isInList) {
+                    // 不在名单内
+                    notInListWarning.style.display = 'block';
+                    startBtn.disabled = true;
+                    return;
+                }
+                
+                // 检查是否重复
+                const nameUsed = allResults.find(r => r.name === name && r.deviceId !== currentUser.deviceId);
+                if (nameUsed) {
+                    duplicateWarning.style.display = 'block';
+                    startBtn.disabled = true;
+                    nameStatus.style.display = 'block';
+                    nameStatusText.innerHTML = `⚠️ <strong>${name}</strong> 已被其他设备使用`;
+                    nameStatus.style.color = '#D32F2F';
+                } else {
+                    startBtn.disabled = false;
+                    nameStatus.style.display = 'block';
+                    nameStatusText.innerHTML = `✓ <strong>${name}</strong> 验证通过`;
+                    nameStatus.style.color = '#388E3C';
+                }
+            });
         }
 
         function checkLimitStatus() {
-            isLimitReached = allResults.length >= CONFIG.MAX_PARTICIPANTS;
+            const totalUsed = probabilitySystem.usedQuotas.lingzhu + 
+                            probabilitySystem.usedQuotas.mowan + 
+                            probabilitySystem.usedQuotas.hunyuanzhu;
+            isLimitReached = totalUsed >= CONFIG.MAX_PARTICIPANTS;
             
             if (isLimitReached) {
                 document.getElementById('limitWarning').style.display = 'block';
                 document.getElementById('userName').disabled = true;
                 document.getElementById('startBtn').disabled = true;
-                document.getElementById('participantCounter').classList.add('full');
             }
         }
 
         function showAlreadyDrawnResult(result) {
-            document.getElementById('duplicateWarning').style.display = 'block';
+            document.getElementById('deviceWarning').style.display = 'block';
             document.getElementById('userName').value = result.name;
             document.getElementById('userName').disabled = true;
             document.getElementById('startBtn').disabled = true;
@@ -382,16 +1019,64 @@
             document.getElementById('step4').style.display = 'block';
             document.getElementById('finalResult').classList.add('show');
             document.getElementById('completeBtn').style.display = 'none';
+            
+            const existingIndex = allResults.findIndex(r => r.deviceId === currentUser.deviceId);
+            if (existingIndex !== -1) {
+                const serialNo = allResults[existingIndex].serialNo || (existingIndex + 1);
+                const serialInfo = document.createElement('div');
+                serialInfo.style.marginTop = '10px';
+                serialInfo.style.fontSize = '14px';
+                serialInfo.style.color = '#8D6E63';
+                serialInfo.innerHTML = `📝 您是第 <strong>${serialNo}</strong> 位参与者`;
+                document.getElementById('finalName').parentNode.appendChild(serialInfo);
+            }
         }
 
         function setupEventListeners() {
             const userNameInput = document.getElementById('userName');
             const startBtn = document.getElementById('startBtn');
             
-            // 姓名输入验证
             userNameInput.addEventListener('input', function() {
                 const name = this.value.trim();
-                startBtn.disabled = name.length < 2 || name.length > 10;
+                const nameStatus = document.getElementById('nameStatus');
+                const nameStatusText = document.getElementById('nameStatusText');
+                const notInListWarning = document.getElementById('notInListWarning');
+                const duplicateWarning = document.getElementById('duplicateWarning');
+                
+                // 隐藏所有警告
+                notInListWarning.style.display = 'none';
+                duplicateWarning.style.display = 'none';
+                nameStatus.style.display = 'none';
+                
+                if (name.length === 0) {
+                    startBtn.disabled = true;
+                    return;
+                }
+                
+                // 检查是否在名单内
+                const isInList = PARTICIPANT_LIST.includes(name);
+                
+                if (!isInList) {
+                    // 不在名单内
+                    notInListWarning.style.display = 'block';
+                    startBtn.disabled = true;
+                    return;
+                }
+                
+                // 检查是否重复
+                const nameUsed = allResults.find(r => r.name === name && r.deviceId !== currentUser.deviceId);
+                if (nameUsed) {
+                    duplicateWarning.style.display = 'block';
+                    startBtn.disabled = true;
+                    nameStatus.style.display = 'block';
+                    nameStatusText.innerHTML = `⚠️ <strong>${name}</strong> 已被其他设备使用`;
+                    nameStatus.style.color = '#D32F2F';
+                } else {
+                    startBtn.disabled = false;
+                    nameStatus.style.display = 'block';
+                    nameStatusText.innerHTML = `✓ <strong>${name}</strong> 验证通过`;
+                    nameStatus.style.color = '#388E3C';
+                }
             });
             
             userNameInput.addEventListener('keypress', function(e) {
@@ -400,8 +1085,9 @@
                 }
             });
             
-            // 开始抽签
             startBtn.addEventListener('click', function() {
+                checkLimitStatus();
+                
                 if (isLimitReached) {
                     alert('已达到30人抽签上限');
                     return;
@@ -413,15 +1099,21 @@
                 }
                 
                 const name = userNameInput.value.trim();
-                if (name.length < 2 || name.length > 10) {
-                    alert('请输入2-10个字符的姓名');
+                if (name.length === 0) {
+                    alert('请输入姓名');
                     return;
                 }
                 
-                // 检查姓名重复
-                const nameUsed = allResults.find(r => r.name === name);
+                // 检查是否在名单内
+                const isInList = PARTICIPANT_LIST.includes(name);
+                if (!isInList) {
+                    alert('您不在本次述职名单内');
+                    return;
+                }
+                
+                const nameUsed = allResults.find(r => r.name === name && r.deviceId !== currentUser.deviceId);
                 if (nameUsed) {
-                    alert('该姓名已被使用，请使用真实姓名');
+                    alert('该姓名已被其他同事使用，请使用真实姓名。每人仅限提交一次。');
                     return;
                 }
                 
@@ -433,49 +1125,68 @@
                 goToStep(2);
             });
             
-            // 抽取身份
+            // 抽取身份（使用动态概率系统）
             document.getElementById('drawIdentityBtn').addEventListener('click', function() {
-                let random = Math.random();
-                let cumulativeProbability = 0;
+                // 使用概率系统选择身份
+                const selectedIdentity = probabilitySystem.selectIdentity();
                 
-                for (const identity of CONFIG.IDENTITIES) {
-                    cumulativeProbability += identity.probability;
-                    if (random <= cumulativeProbability) {
-                        currentUser.identity = identity;
+                // 设置当前用户身份
+                let identityName = "";
+                switch(selectedIdentity) {
+                    case "lingzhu":
+                        identityName = "灵珠";
                         break;
-                    }
+                    case "mowan":
+                        identityName = "魔丸";
+                        break;
+                    case "hunyuanzhu":
+                        identityName = "混元珠";
+                        break;
                 }
                 
-                console.log('抽到身份:', currentUser.identity.name);
+                currentUser.identity = {
+                    name: identityName,
+                    code: selectedIdentity
+                };
                 
-                document.getElementById('identityText').textContent = currentUser.identity.name;
+                console.log(`抽中身份: ${identityName}, 代码: ${selectedIdentity}`);
+                
+                // 显示结果
+                document.getElementById('identityText').textContent = identityName;
                 const badge = document.getElementById('identityBadge');
-                badge.textContent = currentUser.identity.name;
-                badge.className = `badge ${currentUser.identity.code}-badge`;
+                badge.textContent = identityName;
+                badge.className = `badge ${selectedIdentity}-badge`;
                 document.getElementById('identityResult').classList.add('show');
                 this.disabled = true;
                 
-                if (currentUser.identity.code === 'hunyuanzhu') {
-                    currentUser.question = CONFIG.QUESTION_BANKS.hunyuanzhu[0];
-                    setTimeout(() => {
+                // 根据身份决定下一步
+                setTimeout(() => {
+                    if (selectedIdentity === "hunyuanzhu") {
+                        // 混元珠直接使用特权题目
+                        currentUser.question = CONFIG.QUESTION_BANKS.hunyuanzhu[0];
                         goToStep(4);
                         document.getElementById('completeBtn').disabled = false;
-                    }, 1500);
-                } else {
-                    setTimeout(() => {
+                    } else {
+                        // 灵珠或魔丸进入题目抽取
                         goToStep(3);
                         document.getElementById('drawQuestionBtn').disabled = false;
-                    }, 1500);
-                }
+                    }
+                }, 1500);
             });
             
-            // 抽取题目
+            // 抽取题目（使用动态概率系统）
             document.getElementById('drawQuestionBtn').addEventListener('click', function() {
-                const questions = CONFIG.QUESTION_BANKS[currentUser.identity.code];
-                const randomIndex = Math.floor(Math.random() * questions.length);
-                currentUser.question = questions[randomIndex];
+                if (!currentUser.identity) return;
                 
-                document.getElementById('questionText').textContent = currentUser.question;
+                // 使用概率系统选择题目
+                const selectedQuestion = probabilitySystem.selectQuestion(currentUser.identity.code);
+                currentUser.question = selectedQuestion;
+                
+                console.log(`抽中题目: ${selectedQuestion.id}, ${selectedQuestion.text.substring(0, 30)}...`);
+                
+                // 显示题目
+                document.getElementById('questionText').textContent = 
+                    `${selectedQuestion.id}：${selectedQuestion.text}`;
                 document.getElementById('questionResult').classList.add('show');
                 this.disabled = true;
                 
@@ -493,9 +1204,8 @@
                 this.textContent = '✅ 已锁定';
                 
                 showFinalResult();
-                updateParticipantCounter();
                 
-                alert('🎉 抽签完成！您是第' + allResults.length + '位参与者。');
+                alert(`🎉 抽签完成！您是第${allResults.length}位参与者。`);
             });
         }
 
@@ -518,20 +1228,25 @@
                 deviceId: currentUser.deviceId,
                 identity: currentUser.identity.name,
                 code: currentUser.identity.code,
-                question: currentUser.question,
+                question: currentUser.question.id ? 
+                    `${currentUser.question.id}：${currentUser.question.text}` : 
+                    currentUser.question.text,
                 timestamp: new Date().toLocaleString('zh-CN'),
-                serialNo: allResults.length + 1
+                serialNo: allResults.length + 1,
+                questionId: currentUser.question.id || 'T'
             };
             
             allResults.push(result);
-            localStorage.setItem('finance_results_30', JSON.stringify(allResults));
+            localStorage.setItem('finance_results_v3', JSON.stringify(allResults));
+            
+            // 记录到概率系统
+            probabilitySystem.recordUsage(
+                currentUser.identity.code,
+                currentUser.question.id
+            );
             
             // 检查是否达到上限
-            if (allResults.length >= CONFIG.MAX_PARTICIPANTS) {
-                isLimitReached = true;
-                document.getElementById('limitWarning').style.display = 'block';
-                document.getElementById('participantCounter').classList.add('full');
-            }
+            checkLimitStatus();
         }
 
         function showFinalResult() {
@@ -539,17 +1254,18 @@
             const badge = document.getElementById('finalIdentityBadge');
             badge.textContent = currentUser.identity.name;
             badge.className = `badge ${currentUser.identity.code}-badge`;
-            document.getElementById('finalQuestion').textContent = currentUser.question;
+            document.getElementById('finalQuestion').textContent = 
+                currentUser.question.id ? 
+                `${currentUser.question.id}：${currentUser.question.text}` : 
+                currentUser.question.text;
             document.getElementById('finalResult').classList.add('show');
-        }
-
-        function updateParticipantCounter() {
-            const count = allResults.length;
-            document.getElementById('currentCount').textContent = count;
             
-            if (count >= CONFIG.MAX_PARTICIPANTS) {
-                document.getElementById('participantCounter').classList.add('full');
-            }
+            const serialInfo = document.createElement('div');
+            serialInfo.style.marginTop = '10px';
+            serialInfo.style.fontSize = '14px';
+            serialInfo.style.color = '#8D6E63';
+            serialInfo.innerHTML = `📝 您是第 <strong>${allResults.length}</strong> 位参与者`;
+            document.getElementById('finalName').parentNode.appendChild(serialInfo);
         }
 
         // ==================== 管理员功能 ====================
@@ -564,49 +1280,123 @@
 
         function updateAdminStats() {
             const uniqueDevices = new Set(allResults.map(r => r.deviceId)).size;
-            const lingzhuCount = allResults.filter(r => r.code === 'lingzhu').length;
-            const mowanCount = allResults.filter(r => r.code === 'mowan').length;
-            const hunyuanzhuCount = allResults.filter(r => r.code === 'hunyuanzhu').length;
+            const lingzhuCount = probabilitySystem.usedQuotas.lingzhu;
+            const mowanCount = probabilitySystem.usedQuotas.mowan;
+            const hunyuanCount = probabilitySystem.usedQuotas.hunyuanzhu;
+            const totalUsed = lingzhuCount + mowanCount + hunyuanCount;
             
             document.getElementById('adminTotal').textContent = allResults.length;
             document.getElementById('adminUnique').textContent = uniqueDevices;
             document.getElementById('adminLingzhu').textContent = lingzhuCount;
             document.getElementById('adminMowan').textContent = mowanCount;
+            document.getElementById('adminHunyuan').textContent = hunyuanCount;
+            document.getElementById('adminRemaining').textContent = CONFIG.MAX_PARTICIPANTS - totalUsed;
             document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            
+            // 更新概率系统显示
+            probabilitySystem.updateAdminPanel();
         }
 
-        // 导出全部数据（详细版）
         function exportAllData() {
             if (allResults.length === 0) {
                 alert('暂无数据');
                 return;
             }
             
-            let csv = '序号,姓名,设备ID,身份,题目,抽签时间\n';
+            const report = probabilitySystem.getDetailedReport();
+            let csv = '序号,姓名,设备ID,身份,题目ID,题目,抽签时间,概率批次\n';
+            
             allResults.forEach((r, i) => {
-                csv += `${i+1},"${r.name}","${r.deviceId}","${r.identity}","${r.question.replace(/"/g, '""')}","${r.timestamp}"\n`;
+                csv += `${i+1},"${r.name}","${r.deviceId}","${r.identity}","${r.questionId || ''}","${r.question.replace(/"/g, '""')}","${r.timestamp}","v3"\n`;
             });
             
-            downloadCSV(csv, '财务中心抽签详细数据');
-            alert(`已导出 ${allResults.length} 条详细记录`);
+            // 添加概率报告
+            csv += '\n\n=== 概率系统报告 ===\n';
+            csv += '项目,初始配额,已使用,剩余,当前概率\n';
+            csv += `灵珠,${report.quotas.initial.lingzhu},${report.quotas.used.lingzhu},${report.quotas.remaining.lingzhu},${Math.round(report.probabilities.current.lingzhu * 100)}%\n`;
+            csv += `魔丸,${report.quotas.initial.mowan},${report.quotas.used.mowan},${report.quotas.remaining.mowan},${Math.round(report.probabilities.current.mowan * 100)}%\n`;
+            csv += `混元珠,${report.quotas.initial.hunyuanzhu},${report.quotas.used.hunyuanzhu},${report.quotas.remaining.hunyuanzhu},${Math.round(report.probabilities.current.hunyuanzhu * 100)}%\n`;
+            csv += `总计,30,${report.summary.totalParticipants},${report.summary.remainingSlots},-\n`;
+            csv += `分配公平性,${report.summary.distributionFairness}%\n\n`;
+            
+            // 添加题目使用情况
+            csv += '=== 题目使用统计 ===\n';
+            csv += '题库,题目ID,使用次数\n';
+            Object.keys(report.questionUsage).forEach(identity => {
+                Object.keys(report.questionUsage[identity]).forEach(qId => {
+                    csv += `${identity},${qId},${report.questionUsage[identity][qId]}\n`;
+                });
+            });
+            
+            downloadCSV(csv, '财务中心抽签数据');
+            alert(`已导出 ${allResults.length} 条记录，包含详细概率报告`);
         }
 
-        // 导出简版数据（仅姓名和身份）
-        function exportSimpleData() {
-            if (allResults.length === 0) {
-                alert('暂无数据');
-                return;
-            }
+        function exportProbabilityReport() {
+            const report = probabilitySystem.getDetailedReport();
             
-            let csv = '序号,姓名,身份,题目摘要,抽签时间\n';
-            allResults.forEach((r, i) => {
-                const questionSummary = r.question.length > 30 ? 
-                    r.question.substring(0, 30) + '...' : r.question;
-                csv += `${i+1},"${r.name}","${r.identity}","${questionSummary}","${r.timestamp}"\n`;
+            let csv = '=== 动态概率系统详细报告 ===\n';
+            csv += `生成时间,${new Date().toLocaleString('zh-CN')}\n`;
+            csv += `总参与人数,${report.summary.totalParticipants}/30\n`;
+            csv += `剩余名额,${report.summary.remainingSlots}\n`;
+            csv += `分配公平性评分,${report.summary.distributionFairness}%\n\n`;
+            
+            csv += '=== 身份配额详情 ===\n';
+            csv += '身份,初始配额,已使用,剩余配额,初始概率,当前概率,变化\n';
+            
+            ['lingzhu', 'mowan', 'hunyuanzhu'].forEach(identity => {
+                const identityName = identity === 'lingzhu' ? '灵珠' : 
+                                  identity === 'mowan' ? '魔丸' : '混元珠';
+                const initialPct = Math.round(report.probabilities.initial[identity] * 100);
+                const currentPct = Math.round(report.probabilities.current[identity] * 100);
+                const change = currentPct - initialPct;
+                
+                csv += `${identityName},${report.quotas.initial[identity]},${report.quotas.used[identity]},${report.quotas.remaining[identity]},${initialPct}%,${currentPct}%,${change >= 0 ? '+' : ''}${change}%\n`;
             });
             
-            downloadCSV(csv, '财务中心抽签简版数据');
-            alert(`已导出 ${allResults.length} 条简版记录`);
+            csv += '\n=== 题目使用统计 ===\n';
+            csv += '题库,题目总数,总使用次数,平均使用,最常用,最少用\n';
+            
+            Object.keys(report.questionUsage).forEach(identity => {
+                const identityName = identity === 'lingzhu' ? '灵珠' : '魔丸';
+                const questions = CONFIG.QUESTION_BANKS[identity];
+                const usage = report.questionUsage[identity];
+                const totalUses = Object.values(usage).reduce((a, b) => a + b, 0);
+                const avgUse = totalUses / questions.length;
+                
+                let maxUse = 0, minUse = Infinity;
+                let maxQ = '', minQ = '';
+                
+                Object.keys(usage).forEach(qId => {
+                    if (usage[qId] > maxUse) {
+                        maxUse = usage[qId];
+                        maxQ = qId;
+                    }
+                    if (usage[qId] < minUse) {
+                        minUse = usage[qId];
+                        minQ = qId;
+                    }
+                });
+                
+                csv += `${identityName},${questions.length},${totalUses},${avgUse.toFixed(1)},${maxQ}(${maxUse}次),${minQ}(${minUse}次)\n`;
+            });
+            
+            csv += '\n=== 详细题目使用 ===\n';
+            csv += '题库,题目ID,使用次数,使用比例\n';
+            
+            Object.keys(report.questionUsage).forEach(identity => {
+                const identityName = identity === 'lingzhu' ? '灵珠' : '魔丸';
+                const totalUses = Object.values(report.questionUsage[identity]).reduce((a, b) => a + b, 0);
+                
+                Object.keys(report.questionUsage[identity]).forEach(qId => {
+                    const uses = report.questionUsage[identity][qId];
+                    const proportion = totalUses > 0 ? (uses / totalUses * 100).toFixed(1) : 0;
+                    csv += `${identityName},${qId},${uses},${proportion}%\n`;
+                });
+            });
+            
+            downloadCSV(csv, '概率系统详细报告');
+            alert('概率报告已导出');
         }
 
         function downloadCSV(csvContent, filename) {
@@ -620,36 +1410,147 @@
         }
 
         function showAllResults() {
-            const resultsText = allResults.map(r => 
+            const report = probabilitySystem.getDetailedReport();
+            
+            let resultsText = `=== 抽签统计 ===\n`;
+            resultsText += `总抽签数: ${allResults.length}\n`;
+            resultsText += `独立设备: ${new Set(allResults.map(r => r.deviceId)).size}\n`;
+            resultsText += `剩余名额: ${report.summary.remainingSlots}\n`;
+            resultsText += `分配公平性: ${report.summary.distributionFairness}%\n\n`;
+            
+            resultsText += `=== 身份分布 ===\n`;
+            resultsText += `灵珠: ${report.quotas.used.lingzhu}人 (初始配额: ${report.quotas.initial.lingzhu})\n`;
+            resultsText += `魔丸: ${report.quotas.used.mowan}人 (初始配额: ${report.quotas.initial.mowan})\n`;
+            resultsText += `混元珠: ${report.quotas.used.hunyuanzhu}人 (初始配额: ${report.quotas.initial.hunyuanzhu})\n\n`;
+            
+            resultsText += `=== 当前概率 ===\n`;
+            resultsText += `灵珠: ${Math.round(report.probabilities.current.lingzhu * 100)}%\n`;
+            resultsText += `魔丸: ${Math.round(report.probabilities.current.mowan * 100)}%\n`;
+            resultsText += `混元珠: ${Math.round(report.probabilities.current.hunyuanzhu * 100)}%\n\n`;
+            
+            resultsText += `=== 详细记录 ===\n`;
+            resultsText += allResults.map(r => 
                 `【${r.serialNo}】${r.name} - ${r.identity}\n` +
                 `题目：${r.question}\n` +
                 `时间：${r.timestamp}\n` +
-                `设备：${r.deviceId.substr(0, 12)}...\n` +
                 `────────────────────`
             ).join('\n\n');
             
             alert(resultsText || '暂无数据');
         }
 
-        function checkUrlParams() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const adminKey = urlParams.get('admin');
+        // ==================== 重置系统功能 ====================
+        function resetSystemWithPassword() {
+            const passwordInput = document.getElementById('resetPassword');
+            const password = passwordInput.value.trim();
+            const statusDiv = document.getElementById('passwordStatus');
             
-            if (adminKey === CONFIG.ADMIN_PASSWORD) {
-                document.getElementById('adminPanel').classList.add('show');
-                updateAdminStats();
+            // 清空状态显示
+            statusDiv.className = 'password-status';
+            statusDiv.textContent = '';
+            
+            if (!password) {
+                statusDiv.textContent = '请输入密码';
+                statusDiv.className = 'password-status error';
+                return;
             }
+            
+            if (password !== CONFIG.RESET_PASSWORD) {
+                statusDiv.textContent = '密码错误';
+                statusDiv.className = 'password-status error';
+                passwordInput.value = '';
+                return;
+            }
+            
+            // 确认重置
+            if (!confirm('⚠️ 警告：确定要重置全部数据吗？\n\n这将清除所有抽签记录和概率状态，系统将恢复到初始状态。\n此操作不可逆！')) {
+                statusDiv.textContent = '已取消重置';
+                statusDiv.className = 'password-status';
+                passwordInput.value = '';
+                return;
+            }
+            
+            // 执行重置
+            performSystemReset();
+            
+            // 显示成功消息
+            statusDiv.textContent = '✅ 系统已成功重置！';
+            statusDiv.className = 'password-status success';
+            
+            // 清空密码框
+            passwordInput.value = '';
+            
+            // 3秒后清空状态消息
+            setTimeout(() => {
+                statusDiv.textContent = '';
+                statusDiv.className = 'password-status';
+            }, 3000);
         }
 
-        // 全局导出函数（可从控制台调用）
+        function performSystemReset() {
+            // 1. 清空所有结果数据
+            allResults = [];
+            localStorage.removeItem('finance_results_v3');
+            
+            // 2. 清空概率系统数据
+            probabilitySystem.resetSystem();
+            
+            // 3. 重置设备ID（可选，如果希望完全重新开始）
+            // localStorage.removeItem('finance_device_id_v3');
+            
+            // 4. 重置当前用户状态
+            currentUser = {
+                deviceId: currentUser.deviceId, // 保留设备ID，但重置其他状态
+                name: '',
+                hasDrawn: false,
+                isDrawing: false,
+                identity: null,
+                question: null
+            };
+            
+            // 5. 重置页面状态
+            isLimitReached = false;
+            
+            // 6. 重置UI显示
+            document.getElementById('userName').value = '';
+            document.getElementById('userName').disabled = false;
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('startBtn').textContent = '开始抽签';
+            
+            // 7. 隐藏所有警告和结果
+            document.getElementById('duplicateWarning').style.display = 'none';
+            document.getElementById('deviceWarning').style.display = 'none';
+            document.getElementById('notInListWarning').style.display = 'none';
+            document.getElementById('limitWarning').style.display = 'none';
+            document.getElementById('nameStatus').style.display = 'none';
+            
+            // 8. 重置步骤到第一步
+            goToStep(1);
+            
+            // 9. 更新管理面板统计
+            updateAdminStats();
+            
+            // 10. 重新检查用户状态
+            checkUserStatus();
+            checkLimitStatus();
+            
+            console.log('系统已重置，所有数据已清除');
+            alert('🎉 系统重置成功！\n\n所有抽签记录已清除，系统已恢复到初始状态。\n现在可以开始新的抽签了。');
+        }
+
+        // 全局导出函数
         window.exportAllData = exportAllData;
-        window.exportSimpleData = exportSimpleData;
+        window.exportProbabilityReport = exportProbabilityReport;
         window.showAllResults = showAllResults;
         window.toggleAdminPanel = toggleAdminPanel;
+        window.resetSystemWithPassword = resetSystemWithPassword;
+        window.performSystemReset = performSystemReset;
+        window.probabilitySystem = probabilitySystem; // 暴露概率系统供调试
 
-        console.log('✅ 30人抽签系统已就绪');
-        console.log('管理员密码:', CONFIG.ADMIN_PASSWORD);
-        console.log('导出函数: exportAllData(), exportSimpleData()');
+        console.log('✅ 抽签系统已就绪');
+        console.log('初始配额: 灵珠12人, 魔丸12人, 混元珠6人');
+        console.log('重置密码: ' + CONFIG.RESET_PASSWORD);
+        console.log('概率系统:', probabilitySystem.getDetailedReport());
     </script>
 </body>
 </html>
